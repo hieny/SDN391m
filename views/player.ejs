@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('head') %>
+  <body>
+    <%- include('navbar') %> <% if (typeof error !== 'undefined') { %>
+    <div
+      class="alert alert-error alert-dismissible fade show shadow"
+      id="toast"
+      role="alert"
+      style="position: absolute; z-index: 2; width: 20%; right: 10px; top: 10px"
+    >
+      <%= error %>
+    </div>
+    <% } %> <% if (typeof success !== 'undefined' && success === 'true') { %>
+    <div
+      class="alert alert-success alert-dismissible fade show shadow"
+      id="toastSuccess"
+      role="alert"
+      style="position: absolute; z-index: 2; width: 20%; right: 10px; top: 50px"
+    >
+      Delete player successful!
+    </div>
+    <% } %> <% if (typeof success !== 'undefined' && success === 'false') { %>
+    <div
+      class="alert alert-danger alert-dismissible fade show shadow"
+      id="toastSuccess"
+      role="alert"
+      style="position: absolute; z-index: 2; width: 20%; right: 10px; top: 50px"
+    >
+      Delete player fail!
+    </div>
+    <% } %> <% if (typeof se !== 'undefined' && se === 'true') { %>
+    <div
+      class="alert alert-success alert-dismissible fade show shadow"
+      id="toastSuccess"
+      role="alert"
+      style="position: absolute; z-index: 2; width: 20%; right: 10px; top: 10px"
+    >
+      Edit player successful!
+    </div>
+    <% } %> <%- include('playerContent') %> <% if (sessionId && user.isAdmin) {
+    %>
+    <!-- Button trigger modal -->
+    <div class="d-flex justify-content-end m-5">
+      <button
+        type="button"
+        class="btn rounded-circle shadow"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        style="background-color: #326295"
+      >
+        <i class="fa fa-plus" style="color: #fff"></i>
+      </button>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add new player</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" id="formCreate">
+              <div class="form-group">
+                <label for="name">Name:</label> <span style="color:red" id="nameError"></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name1"
+                  name="name"
+                  placeholder="Player's name"
+                  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="image">Image:</label> <span style="color:red" id="imageError"></span>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="image1"
+                    name="image"
+                    placeholder="Paste image link here"
+                    pattern="^(https?://)?\S+$" title="Please enter a valid link or text" required  onblur="this.value=this.value.trim()"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="image">Birthday:</label>
+                <div class="input-group">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="dob"
+                    name="dob"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="club">Club:</label> <span style="color:red" id="clubError"></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="club1"
+                  name="club"
+                  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                  placeholder="Player's club"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="position">Position:</label>
+                <select
+                  class="form-control"
+                  id="position1"
+                  name="position"
+                  required
+                >
+                  <option value="Goalkeeper">Goalkeeper</option>
+                  <option value="Defender">Defender</option>
+                  <option value="Midfielder">Midfielder</option>
+                  <option value="Forward">Forward</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="goals">Goals:</label> <span style="color:red" id="goalsError"></span>
+                <input
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  id="goals1"
+                  pattern="[0-9]+" title="Please enter a number"   onblur="this.value=this.value.trim()"
+                  placeholder="Player's goals"
+                  name="goals"
+                />
+              </div>
+              <div class="form-group">
+                <label for="isCaptain">Captain:</label>
+                <input type="checkbox" id="isCaptain" name="isCaptain" />
+              </div>
+              <div class="form-group">
+                <label for="nation">National: </label>
+                <select class="form-control" id="nation" name="nation" required>
+                  <% nations.forEach(nation=> { %>
+                  <option value="<%= nation._id %>"><%= nation.name %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <%- include('footer') %>
+  
+    <script>
+      // Get the success alert element
+      const successAlert = document.getElementById("toastSuccess");
+
+      // If the success alert exists, remove it after 5 seconds
+      if (successAlert) {
+        setTimeout(() => {
+          successAlert.remove();
+        }, 3000);
+      }
+    </script>
+    <%- include('script') %>
+    
+  </body>
+</html>
+//

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('head') %>
+  <body>
+    <%- include('navbar') %> 
+    <% if (typeof error !== 'undefined') { %>
+      <div
+        class="alert alert-error alert-dismissible fade show shadow"
+        id="toast"
+        role="alert"
+        style="
+          position: absolute;
+          z-index: 2;
+          width: 20%;
+          right: 10px;
+          top: 10px;
+        "
+      >
+      <%= error %>
+      </div>
+      <% } %>
+
+      <% if (typeof success !== 'undefined'  && success === 'true') { %>
+        <div
+          class="alert alert-success alert-dismissible fade show shadow"
+          id="toastSuccess"
+          role="alert"
+          style="
+            position: absolute;
+            z-index: 2;
+            width: 20%;
+            right: 10px;
+            top: 50px;
+          "
+        >
+        Delete nation successful! 
+        </div>
+        <% } %>
+        <% if (typeof success !== 'undefined'  && success === 'false') { %>
+          <div
+            class="alert alert-danger alert-dismissible fade show shadow"
+            id="toastSuccess"
+            role="alert"
+            style="
+              position: absolute;
+              z-index: 2;
+              width: 20%;
+              right: 10px;
+              top: 50px;
+            "
+          >
+          Delete nation fail because this nation has players! 
+          </div>
+          <% } %>
+      <% if (typeof se !== 'undefined'  && se === 'true') { %>
+        <div
+          class="alert alert-success alert-dismissible fade show shadow"
+          id="toastSuccess"
+          role="alert"
+          style="
+            position: absolute;
+            z-index: 2;
+            width: 20%;
+            right: 10px;
+            top: 10px;
+          "
+        >
+        Edit nation successful! 
+        </div>
+        <% } %>
+    <%- include('nationContent') %> <% if (sessionId &&
+    user.isAdmin) { %>
+    <!-- Button trigger modal -->
+    <div class="d-flex justify-content-end m-5">
+      <button
+        type="button"
+        class="btn rounded-circle shadow"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        style="background-color: #326295"
+      >
+        <i class="fa fa-plus" style="color: #fff"></i>
+      </button>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add new nation</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" id="formAdd">
+              <div class="form-group">
+                <label for="name">Name:</label> <span style="color:red" id="nameError"></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nameNa"
+                  name="name"
+                  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="image">Image:</label> <span style="color:red" id="imageError"></span>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="imageNa"
+                    name="flag"
+                    pattern="^(https?://)?\S+$" title="Please enter a valid link or text" required  onblur="this.value=this.value.trim()"
+                    placeholder="Paste image link here"
+                  />
+                  <div class="input-group-append" >
+                    <span class="input-group-text">or</span>
+                  </div>
+                  <div class="custom-file" style="display: none;">
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="imageFile"
+                    />
+                    <label class="custom-file-label" for="imageFile"
+                      >Choose file</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="capital">Capital:</label> <span style="color:red" id="capitalError"></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="capitalNa"
+                  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                  name="capital"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="region">Region:</label>
+                <select class="form-control" id="exampleSelect" name="region">
+                  <option value="Africa">Africa</option>
+                  <option value="Asia">Asia</option>
+                  <option value="Caribbean">Caribbean</option>
+                  <option value="Central America">Central America</option>
+                  <option value="Europe">Europe</option>
+                  <option value="North America">North America</option>
+                  <option value="Oceania">Oceania</option>
+                  <option value="South America">South America</option>
+                </select>
+              </div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <%- include('footer') %> <%- include('script') %>
+    <script>
+      // Get the success alert element
+      const successAlert = document.getElementById("toastSuccess");
+
+      // If the success alert exists, remove it after 5 seconds
+      if (successAlert) {
+        setTimeout(() => {
+          successAlert.remove();
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
+

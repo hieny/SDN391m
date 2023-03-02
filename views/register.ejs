@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('head') %>
+  <body>
+    <section class="" style="background-color: #eee">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-lg-12 col-xl-11">
+            <div class="card text-black" style="border-radius: 25px">
+              <div class="card-body p-md-5">
+                <div class="row justify-content-center">
+                  <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                      Sign up
+                    </p>
+                    <% if (typeof error !== 'undefined' && error === 'true') {
+                    %>
+
+                    <p class="" style="color: red">
+                      Username or Email is already registed! Please try again
+                    </p>
+
+                    <% } %>
+                    <form
+                      method="post"
+                      action="/register"
+                      class="mx-1 mx-md-4"
+                      name="formRegis"
+                      id="formRegis"
+                    >
+                      <div class="d-flex flex-row mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw mt-3 mr-3"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input
+                            type="text"
+                            id="username"
+                            class="form-control"
+                            name="username"
+                            onchange="handleOnChange()"
+                            pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                            required
+                          />
+                          <div class="d-flex flex-row">
+                            <label class="form-label pr-3" for="form3Example1c"
+                              >UserName or Email</label
+                            >
+                            <span id="usernameError" style="color: red"></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw mt-3  mr-3"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            name="name"
+                            onchange="handleOnChange()"
+                            pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                            required
+                          />
+
+                          <div class="d-flex flex-row">
+                            <label class="form-label" for="form3Example1c"
+                              >Your Name</label
+                            >
+                            <span id="nameError" style="color: red"></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row mb-4">
+                        <i class="fa fa-calendar fa-lg me-3 fa-fw mt-3  mr-3"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input
+                            type="date"
+                            id="dob"
+                            class="form-control"
+                            name="dob"
+                            oninput="checkValidate()"
+                          
+                          />
+                          <label class="form-label" for="form3Example3c"
+                            >Your Birthday</label
+                          >
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row mb-4">
+                        <i class="fas fa-lock fa-lg me-3 fa-fw mt-3  mr-3"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            oninput="checkValidate()"
+                            
+                            required
+                          />
+
+                          <div class="d-flex flex-row">
+                            <label class="form-label" for="form3Example4c"
+                              >Password</label
+                            >
+                            <span id="passwordError" style="color: red"></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row mb-4">
+                        <i class="fas fa-key fa-lg me-3 fa-fw mt-3  mr-3"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input
+                            type="password"
+                            id="repeatpassword"
+                            class="form-control"
+                            oninput="checkValidate()"
+                            
+                            required
+                          />
+
+                          <div class="d-flex flex-row">
+                            <label class="form-label" for="form3Example4cd"
+                              >Repeat your password</label
+                            >
+                            <span
+                              id="repeatpassworddError"
+                              style="color: red"
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="d-flex justify-content-center mx-4 mb-3 mb-lg-4"
+                      >
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          Register
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div
+                    class="col-md-10 col-lg-6 col-xl-7 d-flex order-1 order-lg-2"
+                  >
+                    <img
+                      loading="lazy"
+                      decoding="async"
+                      src="/images/pngwing.png"
+                      alt="messi"
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <%- include('script') %>
+  </body>
+</html>
+
+<script>
+  var valid = false;
+  function checkValidate() {
+    let password = document.getElementById("password");
+    let repeatpassword = document.getElementById("repeatpassword");
+    if (password.value === null || password.value === "") {
+      password.style.borderColor = "red";
+      document.getElementById("passwordError").innerHTML =
+        "Password is required";
+    } else {
+      valid = true;
+      password.style.borderColor = "green";
+      document.getElementById("passwordError").innerHTML = "";
+    }
+    if (password.value.length < 6) {
+      password.style.borderColor = "red";
+      document.getElementById("passwordError").innerHTML =
+        "Password is at least 6 characters";
+    }
+
+    if (
+      repeatpassword.value !== password.value &&
+      repeatpassword.value !== "" &&
+      password.value.length === 6
+    ) {
+      repeatpassword.style.borderColor = "red";
+      document.getElementById("repeatpassworddError").innerHTML =
+        "Repeat password is not matches password! Please try again";
+    } else if (repeatpassword.value === password.value) {
+      valid = true;
+      repeatpassword.style.borderColor = "green";
+      document.getElementById("repeatpassworddError").innerHTML = "";
+    }
+  }
+
+  function handleOnChange() {
+    let username = document.getElementById("username");
+    let name = document.getElementById("name");
+
+    if (username.value === null || username.value === "") {
+      username.style.borderColor = "red";
+      document.getElementById("usernameError").innerHTML =
+        "Username is required";
+    } else {
+      valid = true;
+      username.style.borderColor = "green";
+      document.getElementById("usernameError").innerHTML = "";
+    }
+
+    if (name.value === null || name.value === "") {
+      name.style.borderColor = "red";
+      document.getElementById("nameError").innerHTML = "Name is required";
+    } else {
+      valid = true;
+      name.style.borderColor = "green";
+      document.getElementById("nameError").innerHTML = "";
+    }
+  }
+
+  const formSubmit = document.getElementById("formRegis");
+
+  formSubmit.addEventListener("submit", function (event) {
+    if (valid === false) {
+      event.preventDefault();
+    }
+  });
+</script>

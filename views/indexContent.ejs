@@ -1,0 +1,184 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-sm-12 col-lg-3">
+      <p class="font-weight-bold" style="font-size: 20px; letter-spacing: 2px">
+        FIFA in New Zealand
+      </p>
+      <p style="color: grey">
+        Find out more about FIFA's myriad projects in the host country of the
+        Play-Off Tournament for the FIFA Women’s World Cup 2023™.
+      </p>
+    </div>
+    <div class="col-sm-12 col-lg-9">
+      <div class="row">
+        <div class="col-6">
+          <div class="">
+            <img
+              decoding="async"
+              loading="lazy"
+              src="https://digitalhub.fifa.com/transform/4cb2a80d-07c1-4106-b263-66f2387f0bc6/Audio-FIFA-Women-s-World-Cup-2023?io=transform:fill,aspectratio:16x9,width:471&quality=100"
+              alt="img"
+              width="100%"
+              height="100%"
+              class="rounded-top"
+            />
+            <div class="p-4 border rounded-bottom">
+              <p class="text-gray" style="font-size: 12px">
+                FIFA Women’s World Cup Australia & New Zealand 2023™
+              </p>
+              <p class="text-black font-weight-bold">
+                Apply to become a commentator at the FIFA Women’s World Cup
+                2023™
+              </p>
+              <p style="font-size: 13px">20 Feb 2023</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="">
+            <img
+              decoding="async"
+              loading="lazy"
+              src="https://digitalhub.fifa.com/transform/531cab0e-0ee6-471a-a100-f68980672532/Argentina-v-Chile-2023-FIFA-World-Cup-Play-Off-Tournament?io=transform:fill,aspectratio:16x9,width:471&quality=100"
+              alt="img"
+              width="100%"
+              height="100%"
+              class="rounded-top"
+            />
+            <div class="p-4 border rounded-bottom">
+              <p class="text-gray" style="font-size: 12px">Organisation</p>
+              <p class="text-black font-weight-bold">
+                Fans bring colour & passion to Play-Off Tournament
+              </p>
+              <p style="font-size: 13px">19 Feb 2023</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-sm-12 col-lg-4">
+          <div class="">
+            <img
+              decoding="async"
+              loading="lazy"
+              src="https://digitalhub.fifa.com/transform/e32a6d00-8148-4865-8320-cec483cf14f0/Argentina-v-Chile-2023-FIFA-World-Cup-Play-Off-Tournament?io=transform:fill,aspectratio:16x9,width:306&quality=100"
+              alt="img"
+              width="100%"
+              height="100%"
+              class="rounded-top"
+            />
+            <div class="p-4 border rounded-bottom">
+              <p class="text-gray" style="font-size: 12px">Organisation</p>
+              <p class="text-black font-weight-bold">
+                Play-Off Tournament for the FIFA Women’s World Cup™: All you
+                need to know
+              </p>
+              <p style="font-size: 13px">17 Feb 2023</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+          <div class="">
+            <img
+              decoding="async"
+              loading="lazy"
+              src="https://digitalhub.fifa.com/transform/ebd2d5fc-383d-470b-9480-8a8714b9badc/FIFA-Women-s-World-Cup-Unity-Pitch-at-Te-Komititanga-Square-in-the-Commercial-Bay-of-Tamaki-Makaurau-Auckland?io=transform:fill,aspectratio:16x9,width:306&quality=100"
+              alt="img"
+              width="100%"
+              height="100%"
+              class="rounded-top"
+            />
+            <div class="p-4 border rounded-bottom">
+              <p class="text-gray" style="font-size: 12px">
+                FIFA Women’s World Cup Australia & New Zealand 2023™
+              </p>
+              <p class="text-black font-weight-bold">
+                Unity Pitch open to all in Tāmaki Makaurau / Auckland
+              </p>
+              <p style="font-size: 13px">20 Jan 2023</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+          <div class="">
+            <img
+              decoding="async"
+              loading="lazy"
+              src="https://digitalhub.fifa.com/transform/9ec3adce-4cc6-4599-9d40-aa000edf5357/FIFA-Women-s-World-Cup-Australia-New-Zealand-2023-Beyond-Greatness-Champions-Chloe-Dalton?io=transform:fill,aspectratio:16x9,width:306&quality=100"
+              alt="img"
+              width="100%"
+              height="100%"
+              class="rounded-top"
+            />
+            <div class="p-4 border rounded-bottom">
+              <p class="text-gray" style="font-size: 12px">
+                FIFA Women’s World Cup Australia & New Zealand 2023™
+              </p>
+              <p class="text-black font-weight-bold">
+                Over half-a-million tickets sold for FIFA Women’s World Cup
+                2023™
+              </p>
+              <p style="font-size: 13px">17 Jan 2023</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-3">
+      <p class="font-weight-bold" style="font-size: 20px; letter-spacing: 2px">
+        Captain
+      </p>
+      <p style="color: grey">
+        Find out more about FIFA's myriad projects in the host country of the
+        Play-Off Tournament for the FIFA World Cup 2023™.
+      </p>
+    </div>
+    <div class="col-sm-12 col-lg-9">
+      <div class="row my-2">
+        <% captain.forEach(member => { %>
+        <div class="col-sm-3 col-lg-4">
+          <div class="my_card shadow my-2" style="border-radius: 10px; position: relative;">
+            <img
+              decoding="async"
+              loading="lazy"
+              src="<%= member.image %>"
+              alt=""
+              width="100%"
+              height="300px"
+              style="border-radius: 10px"
+            />
+            <img
+                decoding="async"
+                loading="lazy"
+                src="<%=
+              member.nation_data.flag.png %>"
+                alt=""
+                width="50px"
+                height="50px"
+                style="position:absolute; top:0; left:0;"
+              />
+            <div class="d-flex flex-column">
+              <p
+                class="font-weight-bold text-center text-uppercase mt-2"
+                style="color: #004f9f; letter-spacing: 2px"
+              >
+                <%= member.name %>
+              </p>
+
+              <p
+                class="font-weight-bold text-center"
+                style="letter-spacing: 2px"
+              >
+                <%= member.nation_data.name %>
+              </p>
+
+              
+            </div>
+          </div>
+        </div>
+        <% }) %>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>

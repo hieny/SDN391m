@@ -1,0 +1,213 @@
+<div class="container my-3">
+    <div class="row">
+        <% results.forEach(player=> { %>
+            <div class="col-md-4">
+                <div class="my_card shadow" style="border-radius: 22px; height: 90%;" >
+                    <img decoding="async" loading="lazy" src="<%= player.image %>" alt="" width="100%"
+                        height="100%" style="border-radius: 22px;" />
+                    <p class="font-weight-bold text-center text-uppercase mt-2"
+                        style="font-size: 25px; color: #004f9f; letter-spacing: 2px">
+                        <%= player.name %>
+                    </p>
+
+                    <div class="my_card_hover">
+                        <div class="row">
+                            <% if (sessionId && user.isAdmin){ %>
+                                <div class="col-sm-12">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="dropdown dropleft">
+                                            <a class="btn " href="#" role="button" data-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v" style="color: #fff"></i>
+                                            </a>
+    
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" data-toggle="modal"
+                                                    data-target="#edit<%= player._id %>" href="#"><i class="fa fa-edit"></i>
+                                                    Edit</a>
+                                                <a class="dropdown-item" data-toggle="modal"
+                                                    data-target="#delete<%= player._id %>" href="#" style="color: red"><i
+                                                        class="fa fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } else {%>
+                                <div class="col-sm-12">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="dropdown dropleft">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" 
+                                                aria-expanded="false">
+                                                <!-- <i class="fa fa-ellipsis-v" style="color: #fff"></i> -->
+                                            </a>
+    
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" data-toggle="modal"
+                                                    data-target="#edit<%= player._id %>" href="#"><i class="fa fa-edit"></i>
+                                                    Edit</a>
+                                                <a class="dropdown-item" data-toggle="modal"
+                                                    data-target="#delete<%= player._id %>" href="#" style="color: red"><i
+                                                        class="fa fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%} %>
+                           
+                            <div class="col-sm-12 p-5">
+                                <img decoding="async" loading="lazy" src="<%=
+              player.nation_data.flag.png %>" alt="" width="50px" height="50px" />
+                                <p>
+                                    <span class="font-weight-bold">Birthday: </span>
+                                    <%= new Date( player.dob).getFullYear() + '-' + ('0' + ( new Date(
+                                        player.dob).getMonth() + 1)).slice(-2) + '-' + ('0' + new Date(
+                                        player.dob).getDate()).slice(-2) + ' (' +(new Date().getFullYear() - new Date(
+                                        player.dob).getFullYear() ) +"yrs)"%>
+                                </p>
+                                <p>
+                                    <span class="font-weight-bold">Club: </span>
+                                    <%= player.club %>
+                                </p>
+                                <p>
+                                    <span class="font-weight-bold">Position: </span>
+                                    <%= player.position %>
+                                </p>
+                                <p>
+                                    <span class="font-weight-bold">Goals: </span>
+                                    <%= player.goals? player.goals : "no info" %>
+                                </p>
+                                <p>
+                                    <span class="font-weight-bold">Captain: </span>
+                                    <%= player.isCaptain? "Yes" : "No" %>
+                                </p>
+                                <p>
+                                    <span class="font-weight-bold">Nation: </span>
+                                    <%= player.nation_data.name %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Edit -->
+            <div class="modal fade" id="edit<%= player._id %>" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Edit player</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/players/edit/<%= player._id %>" id="formEdit">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>  <span style="color:red" id="nameError1"></span>
+                                    <input type="text"  value="<%= player.name %>" class="form-control" id="name" name="name" pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"/>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Image URL:</label>  <span style="color:red" id="imageError1"></span>
+                                    <input type="url" class="form-control" id="image" name="image"   pattern="^(https?://)?\S+$" title="Please enter a valid link or text" required  onblur="this.value=this.value.trim()"
+                                        value="<%= player.image %>" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthday">Birthday:</label>
+                                    <input type="date" class="form-control" id="birthday" name="dob"
+                                        value="<%= new Date(player.dob).toISOString().slice(0,10) %>" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="club">Club:</label>  <span style="color:red" id="clubError1"></span>
+                                    <input type="text" class="form-control" id="club" name="club"   pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                                        value="<%= player.club %>" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="goals">Goals:</label> <span style="color:red" id="goalsError1"></span>
+                                    <input class="form-control" id="goals" name="goals"  type="number" min="0" pattern="[0-9]+" title="Please enter a number"   onblur="this.value=this.value.trim()"
+                                        value="<%= player.goals %>"  />
+                                </div>
+                                <div class="form-group">
+                                    <label for="position">Position:</label>
+                                    <select class="form-control" id="position" name="position" required>
+
+                                        <option value="Goalkeeper" <% if (player.position==="Goalkeeper" ) { %> selected
+                                            <% } %> >Goalkeeper
+                                        </option>
+                                        <option value="Defender" <% if (player.position==="Defender" ) { %> selected <%
+                                                } %> >Defender</option>
+                                        <option value="Midfielder" <% if (player.position==="Midfielder" ) { %> selected
+                                            <% } %> >Midfielder
+                                        </option>
+                                        <option value="Forward" <% if (player.position==="Forward" ) { %> selected <% }
+                                                %> >Forward</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nation">National flag:</label>
+                                    <select class="form-control" id="nation" name="nation" required>
+                                        <% nations.forEach(nation=> { %>
+                                            <option value="<%= nation._id %>" <% if (player.nation_data.name === nation.name) { %>
+                                                selected
+                                            <% } %> >
+                                               <%= nation.name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="isCaptain" <%= player.isCaptain ? 'checked' : '' %>> 
+                                        Captain
+                                      </label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Confirm</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal delete -->
+            <div class="modal fade" id="delete<%= player._id %>" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <form  method="get" action="/players/edit/<%= player._id %>">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span style="color: red; font-size: 20px" class="font-weight: bold">
+                                    DELETE PLAYER
+                                </span>
+                              
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <i class="fa fa-exclamation-triangle" style="color: orange; font-size: 100px"></i>
+                                    Are you sure to DELETE
+                                    <span style="color: red; font-size: 20px" class="font-weight: bold">
+                                        <%= player.name %>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <% }) %>
+
+
+    </div>
+</div>
+

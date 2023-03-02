@@ -1,0 +1,229 @@
+<div class="container my-5">
+  <div class="row">
+    <% nations.forEach(nation => { %>
+
+    <div class="col-sm-12 col-md-6">
+      <div class="card mb-3 shadow">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img
+              src="<%= nation.flag.png %>"
+              alt="<%= nation.flag.alt %>"
+              height="100%"
+              width="100%"
+              decoding="async"
+              loading="lazy"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-sm-12 col-lg-10">
+                <div class="card-body">
+                  <p class="card-title">
+                    <span class="rounded-pill p-1 font-weight-bold"
+                      >Name:
+                    </span>
+                    <%= nation.name %>
+                  </p>
+                  <p class="card-text">
+                    <span class="rounded-pill p-1 font-weight-bold"
+                      >Capital:
+                    </span>
+                    <%= nation.capital %>
+                  </p>
+                  <p class="card-text">
+                    <span class="rounded-pill p-1 font-weight-bold"
+                      >Region:
+                    </span>
+                    <%= nation.region %>
+                  </p>
+                </div>
+              </div>
+
+              <% if (sessionId && user.isAdmin) { %>
+                <div class="col-sm-12 col-lg-2">
+                  <div class="dropdown dropleft">
+                    <a
+                      class="btn"
+                      href="#"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="fa fa-ellipsis-v"></i>
+                    </a>
+  
+                    <div class="dropdown-menu">
+                      <a
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#edit<%= nation._id %>"
+                        href="#"
+                        ><i class="fa fa-edit"></i> Edit</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#delete<%= nation._id %>"
+                        href="#"
+                        style="color: red"
+                        ><i class="fa fa-trash"></i> Delete</a
+                      >
+                    </div>
+                    <!-- Modal Edit -->
+                    <div
+                      class="modal fade"
+                      id="edit<%= nation._id %>"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">
+                             Edit nation
+                            </h5>
+                            <button
+                              type="button"
+                              class="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form method="POST" action="/nations/edit/<%= nation._id %>" id="formEdit">
+                              <div class="form-group">
+                                <label for="name">Name</label> <span style="color:red" id="nameNAError"></span>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="nameNA1"
+                                  name="name"
+                                  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                                  value="<%= nation.name %>"
+                                  required
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="capital">Capital</label> <span style="color:red" id="capitalNAError"></span>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="capitalNA1"
+                                  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()"
+                                  name="capital"
+                                  value="<%= nation.capital %>"
+                                  required
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="image">Flag's image</label> <span style="color:red" id="imageNAError"></span>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="imageNA1"
+                                  pattern="^(https?://)?\S+$" title="Please enter a valid link or text" required  onblur="this.value=this.value.trim()"
+                                  name="flag"
+                                  value="<%= nation.flag.png %>"
+                                  required
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="region">Region</label>
+                                <select class="form-control" id="exampleSelect" name="region" >
+                                  <option value="Africa"  <%= nation.region === 'Africa' ? 'selected' : '' %>>Africa</option>
+                                  <option value="Asia"  <%= nation.region === 'Asia' ? 'selected' : '' %>>Asia</option>
+                                  <option value="Caribbean"  <%= nation.region === 'Caribbean' ? 'selected' : '' %>>Caribbean</option>
+                                  <option value="Central America"  <%= nation.region === 'Central America' ? 'selected' : '' %>>Central America</option>
+                                  <option value="Europe"  <%= nation.region === 'Europe' ? 'selected' : '' %>>Europe</option>
+                                  <option value="North America"  <%= nation.region === 'North America' ? 'selected' : '' %>>North America</option>
+                                  <option value="Oceania"  <%= nation.region === 'Oceania' ? 'selected' : '' %>>Oceania</option>
+                                  <option value="South America" <%= nation.region === 'South America' ? 'selected' : '' %>>South America</option>
+                                </select>
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                  Confirm
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal delete -->
+                    <div
+                      class="modal fade"
+                      id="delete<%= nation._id %>"
+                      aria-hidden="true"
+                    >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <form method="get" action="/nations/edit/<%= nation._id %>">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <span style="color: red; font-size: 20px" class="font-weight: bold">
+                              DELETE NATION
+                          </span>
+                            <button
+                              type="button"
+                              class="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div
+                              class="d-flex flex-column justify-content-center align-items-center"
+                            >
+                              <i
+                                class="fa fa-exclamation-triangle"
+                                style="color: orange; font-size: 50px"
+                              ></i>
+                              Are you sure to delete
+                              <span
+                                style="color: red; font-size: 20px"
+                                class="font-weight: bold"
+                              >
+                                <%= nation.name %></span
+                              >
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                              Confirm
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% }) %>
+  </div>
+</div>
+

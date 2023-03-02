@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('head') %>
+  <body>
+    <section class="" style="background-color: #eee">
+      <div class="container h-100">
+        <% if (typeof success !== 'undefined' && success === 'true') { %>
+        <div
+          class="alert alert-success alert-dismissible fade show shadow"
+          id="toast"
+          role="alert"
+          style="
+            position: absolute;
+            z-index: 2;
+            width: 20%;
+            right: 10px;
+            top: 10px;
+          "
+        >
+          Registration successful! You can now log in.
+        </div>
+        <% } %>
+
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-lg-12 col-xl-11">
+            <div class="card text-black" style="border-radius: 25px">
+              <div class="card-body p-md-5">
+                <div class="row justify-content-center">
+                  <div
+                    class="col-md-10 col-lg-6 col-xl-7 d-flex order-1 order-lg-1"
+                  >
+                    <img
+                      src="/images/pngegg.png"
+                      class="img-fluid"
+                      alt="Sample image"
+                    />
+                  </div>
+                  <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-2">
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                      Sign In
+                    </p>
+                    <% if (typeof message !== 'undefined') { %>
+
+                    <h6 style="color: red"><%= message %></h6>
+                    <% }else{ } %>
+                    <form method="post" action="/login">
+                      <div
+                        class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
+                      >
+                        <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+
+                        <button type="button" class="btn btn-floating mx-1">
+                          <a
+                            class="button google"
+                            href="/login/federated/google"
+                            ><i class="fab fa-google"></i
+                          ></a>
+                        </button>
+                      </div>
+
+                      <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0">Or</p>
+                      </div>
+
+                      <!-- Email input -->
+                      <div class="form-outline mb-4">
+                        <input
+                          type="text"
+                          name="username"
+                          id="form3Example3"
+                          class="form-control form-control-lg"
+                          placeholder="Enter userName or Email address"
+                          required
+                        />
+                        <label class="form-label" for="form3Example3"
+                          >Username</label
+                        >
+                      </div>
+
+                      <!-- Password input -->
+                      <div class="form-outline mb-3">
+                        <input
+                          type="password"
+                          id="form3Example4"
+                          name="password"
+                          class="form-control form-control-lg"
+                          placeholder="Enter password"
+                          required
+                        />
+                        <label class="form-label" for="form3Example4"
+                          >Password</label
+                        >
+                      </div>
+
+                      <div class="text-center text-lg-start mt-4 pt-2">
+                        <button
+                          type="submit"
+                          class="btn btn-primary btn-lg"
+                          style="padding-left: 2.5rem; padding-right: 2.5rem"
+                        >
+                          Login
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                          Don't have an account?
+                          <a href="/register" class="link-danger">Register</a>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <%- include('script') %>
+
+    <script>
+      // Get the success alert element
+      const successAlert = document.getElementById("toast");
+
+      // If the success alert exists, remove it after 5 seconds
+      if (successAlert) {
+        setTimeout(() => {
+          successAlert.remove();
+        }, 7000);
+      }
+    </script>
+  </body>
+</html>

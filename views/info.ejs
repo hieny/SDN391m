@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('head') %>
+
+  <body>
+    <%- include('navbar') %>
+      <section class="" >
+        <div class="container py-5 h-100" >
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-6 mb-4 mb-lg-0">
+              <div class="card mb-3 shadow" style="border-radius: .5rem;">
+                <div class="row g-0">
+                  <div class="col-md-4 gradient-custom text-center "
+                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                    <img  src="/images/avataaars.png"
+                      alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body p-4">
+                      <h6>Information</h6>
+                      <hr class="mt-0 mb-4">
+                      <form method="post" action="/accounts/edit">
+                      <div class="row pt-1">
+                        <div class="col-12 mb-3">
+                          <h6 style="font-weight: bold;">Username: </h6>
+                          <% if (typeof user !==undefined ) { %>
+                            <p
+                           > <%= user.username %> </p>
+
+                            <% } %>
+
+                        </div>
+                      
+                        <input name="id" value="<%= user._id %>" style="display: none"/>
+                          <div class="col-12 mb-3">
+                            <h6 style="font-weight: bold;">Name: </h6>
+                            <div class="d-flex flex-row">
+                              <% if (typeof user !==undefined ) { %>
+                                <input id="name-input" name="name" type="text" readonly value="<%= user.name %>" style="width: 100%; border: none"  pattern="^\S+(?:\s+\S+)*$" title="Emty and spaces only are not allowed" required  onblur="this.value=this.value.trim()" />
+                                <% } %>
+                                  <button class="btn" type="button" onclick="toggleInput('name-input')">
+                                    <i class="fa fa-edit"></i>
+                                  </button>
+                            </div>
+                          </div>
+  
+                          <div class="col-12 mb-3">
+                            <h6 style="font-weight: bold;">Birthday: </h6>
+                            <div class="d-flex flex-row">
+                              <% if (typeof user !==undefined && user.dob ) { %>
+                                <input id="dob-input" name="dob" type="date" readonly value="<%= new Date(user.dob).toISOString().slice(0,10)  %>"
+                                  style="width: 100%; border: none"   required />
+                                <% }else{%>
+                                  <input id="dob-input" name="dob" type="date" readonly 
+                                  style="width: 100%; border: none"   required />
+                                  <%} %>
+                                  <button class="btn" type="button" onclick="toggleInput('dob-input')">
+                                    <i class="fa fa-edit"></i>
+                                  </button>
+                            </div>
+                          </div>
+                          <button class="btn btn-success" type="submit">Update</button>
+                        </form>
+
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+      <%- include('script') %>
+      <script>
+        function toggleInput(id) {
+          var inputElement = document.getElementById(id);
+          inputElement.removeAttribute('readonly');
+          inputElement.focus();
+        }
+      </script>
+  </body>
+
+</html>
