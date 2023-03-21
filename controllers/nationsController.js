@@ -2,20 +2,78 @@ const Nations = require("../models/nations");
 const mongoose = require("mongoose");
 
 class nationsController {
-  async index(req, res) {
-    Nations.find()
-      .then((nations) => {
-        const sessionId = req.cookies.sessionId;
-        const user = req.cookies.user;
-        const success = req.query.success;
-        const se = req.query.se;
+  // async index(req, res) {
+  //   Nations.find()
+  //     .then((nations) => {
+  //       const sessionId = req.cookies.sessionId;
+  //       const user = req.cookies.user;
+  //       const success = req.query.success;
+  //       const se = req.query.se;
 
-        res.render("nation", { nations, user, sessionId, success, se });
-      })
-      .catch(() => {
-        res.json({ message: "error" });
+  //       res.render("nation", { nations, user, sessionId, success, se });
+  //     })
+  //     .catch(() => {
+  //       res.json({ message: "error" });
+  //     });
+  // }
+
+  async index(req, res) {
+    const pageSize = 4;
+    const page = parseInt(req.query.page) || 1;
+
+    try {
+      const count = await Nations.countDocuments();
+      const totalPages = Math.ceil(count / pageSize);
+
+      const nations = await Nations.find()
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .exec();
+
+      const sessionId = req.cookies.sessionId;
+      const user = req.cookies.user;
+      const success = req.query.success;
+      const se = req.query.se;
+
+      res.render("nation", {
+        nations,
+        user,
+        sessionId,
+        success,
+        se,
+        currentPage: page,
+        totalPages,
+        pageRange: getPageRange(page, totalPages, 5),
       });
+    } catch (err) {
+      console.log(err);
+      res.json({ message: "error" });
+    }
+
+    function getPageRange(currentPage, totalPages, pageRangeSize) {
+     const range = [];
+     let start = currentPage - Math.floor(pageRangeSize / 2);
+     let end = currentPage + Math.floor(pageRangeSize / 2);
+
+     if(start < 1 ) {
+      start = 1;
+      end = pageRangeSize;
+     }
+
+     if(end > totalPages) {
+      end = totalPages;
+    }  
+     
+     for(let i = start; i <= end; i++) {
+      range.push(i);
+     }
+    
+     
+
+     return range;
   }
+}
+
   async add(req, res) {
     const { name, capital, flag, region } = req.body;
     const nations = new Nations({

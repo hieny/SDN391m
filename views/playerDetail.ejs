@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('head') %>
+  <body>
+    <%- include('navbar') %>
+
+    <div class="container">
+      
+        <div class="row"> 
+            <div class="col-6 d-flex justify-content-end">
+                <div class="my_card shadow" style="border-radius: 22px; height: 90%;width: 50%">
+                    <img
+                      decoding="async"
+                      loading="lazy"
+                      src="<%= detail.image %>"
+                      alt=""
+                      width="100%"
+                      height="100%"
+                      style="border-radius: 22px"
+                    />
+                    <p
+                      class="font-weight-bold text-center text-uppercase mt-2"
+                      style="color: #004f9f; letter-spacing: 2px"
+                    >
+                      <%= detail.name %>
+                    </p>
+                  </div>
+            </div>
+            <div class="col-6">
+                <div class="">
+                    <div class="col-sm-12 p-5">
+                      <img
+                        decoding="async"
+                        loading="lazy"
+                        src="<%=
+            detail.nation_data.flag.png %>"
+                        alt=""
+                        width="50px"
+                        height="50px"
+                      />
+                      <p>
+                        <span class="font-weight-bold">Birthday: </span>
+                        <%= new Date( detail.dob).getFullYear() + '-' + ('0' + ( new Date(
+                        detail.dob).getMonth() + 1)).slice(-2) + '-' + ('0' + new Date(
+                        detail.dob).getDate()).slice(-2) + ' (' +(new Date().getFullYear()
+                        - new Date( detail.dob).getFullYear() ) +"yrs)"%>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold">Club: </span>
+                        <%= detail.club %>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold">Position: </span>
+                        <%= detail.position %>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold">Goals: </span>
+                        <%= detail.goals? detail.goals : "no info" %>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold">Captain: </span>
+                        <%= detail.isCaptain? "Yes" : "No" %>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold">Nation: </span>
+                        <%= detail.nation_data.name %>
+                      </p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+      
+      
+    </div>
+
+    <%- include('footer') %>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <%- include('script') %>
+  </body>
+</html>

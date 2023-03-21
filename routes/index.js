@@ -36,6 +36,7 @@ router.get('/', async function(req, res, next) {
 router.get('/info', function(req, res, next) {
   const sessionId = req.cookies.sessionId
   const user = req.cookies.user
+  console.log(user)
   res.render('info', { sessionId,user });
 });
 

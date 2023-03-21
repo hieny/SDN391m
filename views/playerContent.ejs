@@ -2,92 +2,94 @@
     <div class="row">
         <% results.forEach(player=> { %>
             <div class="col-md-4">
-                <div class="my_card shadow" style="border-radius: 22px; height: 90%;" >
-                    <img decoding="async" loading="lazy" src="<%= player.image %>" alt="" width="100%"
-                        height="100%" style="border-radius: 22px;" />
-                    <p class="font-weight-bold text-center text-uppercase mt-2"
-                        style="font-size: 25px; color: #004f9f; letter-spacing: 2px">
-                        <%= player.name %>
-                    </p>
-
-                    <div class="my_card_hover">
-                        <div class="row">
-                            <% if (sessionId && user.isAdmin){ %>
-                                <div class="col-sm-12">
-                                    <div class="d-flex justify-content-end">
-                                        <div class="dropdown dropleft">
-                                            <a class="btn " href="#" role="button" data-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v" style="color: #fff"></i>
-                                            </a>
+                <a href="/players/<%= player._id %>">
+                    <div class="my_card shadow" style="border-radius: 22px; height: 90%;" >
+                        <img decoding="async" loading="lazy" src="<%= player.image %>" alt="" width="100%"
+                            height="100%" style="border-radius: 22px;" />
+                        <p class="font-weight-bold text-center text-uppercase mt-2"
+                            style="font-size: 25px; color: #004f9f; letter-spacing: 2px">
+                            <%= player.name %>
+                        </p>
     
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" data-toggle="modal"
-                                                    data-target="#edit<%= player._id %>" href="#"><i class="fa fa-edit"></i>
-                                                    Edit</a>
-                                                <a class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delete<%= player._id %>" href="#" style="color: red"><i
-                                                        class="fa fa-trash"></i> Delete</a>
+                        <div class="my_card_hover">
+                            <div class="row">
+                                <% if (sessionId && user.isAdmin){ %>
+                                    <div class="col-sm-12">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="dropdown dropleft">
+                                                <a class="btn " href="#" role="button" data-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-v" style="color: #fff"></i>
+                                                </a>
+        
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" data-toggle="modal"
+                                                        data-target="#edit<%= player._id %>" href="#"><i class="fa fa-edit"></i>
+                                                        Edit</a>
+                                                    <a class="dropdown-item" data-toggle="modal"
+                                                        data-target="#delete<%= player._id %>" href="#" style="color: red"><i
+                                                            class="fa fa-trash"></i> Delete</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            <% } else {%>
-                                <div class="col-sm-12">
-                                    <div class="d-flex justify-content-end">
-                                        <div class="dropdown dropleft">
-                                            <a class="btn" href="#" role="button" data-toggle="dropdown" 
-                                                aria-expanded="false">
-                                                <!-- <i class="fa fa-ellipsis-v" style="color: #fff"></i> -->
-                                            </a>
-    
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" data-toggle="modal"
-                                                    data-target="#edit<%= player._id %>" href="#"><i class="fa fa-edit"></i>
-                                                    Edit</a>
-                                                <a class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delete<%= player._id %>" href="#" style="color: red"><i
-                                                        class="fa fa-trash"></i> Delete</a>
+                                <% } else {%>
+                                    <div class="col-sm-12">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="dropdown dropleft">
+                                                <a class="btn" href="#" role="button" data-toggle="dropdown" 
+                                                    aria-expanded="false">
+                                                    <!-- <i class="fa fa-ellipsis-v" style="color: #fff"></i> -->
+                                                </a>
+        
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" data-toggle="modal"
+                                                        data-target="#edit<%= player._id %>" href="#"><i class="fa fa-edit"></i>
+                                                        Edit</a>
+                                                    <a class="dropdown-item" data-toggle="modal"
+                                                        data-target="#delete<%= player._id %>" href="#" style="color: red"><i
+                                                            class="fa fa-trash"></i> Delete</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <%} %>
+                               
+                                <div class="col-sm-12 p-5">
+                                    <img decoding="async" loading="lazy" src="<%=
+                  player.nation_data.flag.png %>" alt="" width="50px" height="50px" />
+                                    <p>
+                                        <span class="font-weight-bold">Birthday: </span>
+                                        <%= new Date( player.dob).getFullYear() + '-' + ('0' + ( new Date(
+                                            player.dob).getMonth() + 1)).slice(-2) + '-' + ('0' + new Date(
+                                            player.dob).getDate()).slice(-2) + ' (' +(new Date().getFullYear() - new Date(
+                                            player.dob).getFullYear() ) +"yrs)"%>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">Club: </span>
+                                        <%= player.club %>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">Position: </span>
+                                        <%= player.position %>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">Goals: </span>
+                                        <%= player.goals? player.goals : "no info" %>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">Captain: </span>
+                                        <%= player.isCaptain? "Yes" : "No" %>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">Nation: </span>
+                                        <%= player.nation_data.name %>
+                                    </p>
                                 </div>
-                                <%} %>
-                           
-                            <div class="col-sm-12 p-5">
-                                <img decoding="async" loading="lazy" src="<%=
-              player.nation_data.flag.png %>" alt="" width="50px" height="50px" />
-                                <p>
-                                    <span class="font-weight-bold">Birthday: </span>
-                                    <%= new Date( player.dob).getFullYear() + '-' + ('0' + ( new Date(
-                                        player.dob).getMonth() + 1)).slice(-2) + '-' + ('0' + new Date(
-                                        player.dob).getDate()).slice(-2) + ' (' +(new Date().getFullYear() - new Date(
-                                        player.dob).getFullYear() ) +"yrs)"%>
-                                </p>
-                                <p>
-                                    <span class="font-weight-bold">Club: </span>
-                                    <%= player.club %>
-                                </p>
-                                <p>
-                                    <span class="font-weight-bold">Position: </span>
-                                    <%= player.position %>
-                                </p>
-                                <p>
-                                    <span class="font-weight-bold">Goals: </span>
-                                    <%= player.goals? player.goals : "no info" %>
-                                </p>
-                                <p>
-                                    <span class="font-weight-bold">Captain: </span>
-                                    <%= player.isCaptain? "Yes" : "No" %>
-                                </p>
-                                <p>
-                                    <span class="font-weight-bold">Nation: </span>
-                                    <%= player.nation_data.name %>
-                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <!-- Modal Edit -->
             <div class="modal fade" id="edit<%= player._id %>" aria-hidden="true">
@@ -209,5 +211,31 @@
 
 
     </div>
+
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Nation pagination">
+          <ul class="pagination">
+            <% if (currentpage > 1) { %>
+              <li class="page-item">
+                <a class="page-link" href="/players?page=<%= currentpage - 1 %>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            <% } %>
+            <% for (let i of pageRange) { %>
+              <li class="page-item <% if (i === currentpage) { %>active<% } %>">
+                <a class="page-link" href="/players?page=<%= i %>"><%= i %></a>
+              </li>
+            <% } %>
+            <% if (currentpage < totalPage) { %>
+              <li class="page-item">
+                <a class="page-link" href="/players?page=<%= currentpage + 1 %>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
 </div>
 

@@ -13,6 +13,11 @@ function generateSessionId() {
 }
 
 authenRouter.route("/").get(userController.index).post(userController.login);
+authenRouter.route("/forgotpassword").get(userController.forgotPassword)
+authenRouter.route("/forgotpassword/1").get(userController.checkUserName)
+authenRouter.route("/forgotpassword/2").post(userController.sendOTP)
+authenRouter.route("/forgotpassword/3").post(userController.verifyOTP)
+authenRouter.route("/forgotpassword/change").post(userController.changePassword)
 
 authenRouter.get("/federated/google", passport.authenticate("google"));
 
@@ -26,9 +31,10 @@ authenRouter.get(
      // Retrieve user data and store in local storage
      const user = req.user;
      const userData = {
-       id: user._id,
+       _id: user._id,
        username: user.username,
        name: user.name,
+       dob: user.dob,
        isAdmin: user.isAdmin,
      };
      

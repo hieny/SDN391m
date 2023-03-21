@@ -23,7 +23,9 @@ playerRouter
   .get(playersController.index)
   .post(checkAuth, playersController.add);
 
-playerRouter
+  playerRouter.route("/:playerId").get(playersController.playerDetail)
+
+  playerRouter
   .route("/edit/:playerId")
   .post(checkAuth, playersController.update)
   .get(checkAuth, playersController.del);

@@ -137,44 +137,47 @@
       <div class="row my-2">
         <% captain.forEach(member => { %>
         <div class="col-sm-3 col-lg-4">
-          <div class="my_card shadow my-2" style="border-radius: 10px; position: relative;">
-            <img
-              decoding="async"
-              loading="lazy"
-              src="<%= member.image %>"
-              alt=""
-              width="100%"
-              height="300px"
-              style="border-radius: 10px"
-            />
-            <img
+          <a href="/players/<%= member._id %>">
+            <div
+              class="my_card shadow my-2"
+              style="border-radius: 10px; position: relative"
+            >
+              <img
+                decoding="async"
+                loading="lazy"
+                src="<%= member.image %>"
+                alt=""
+                width="100%"
+                height="300px"
+                style="border-radius: 10px"
+              />
+              <img
                 decoding="async"
                 loading="lazy"
                 src="<%=
-              member.nation_data.flag.png %>"
+                member.nation_data.flag.png %>"
                 alt=""
                 width="50px"
                 height="50px"
-                style="position:absolute; top:0; left:0;"
+                style="position: absolute; top: 0; left: 0"
               />
-            <div class="d-flex flex-column">
-              <p
-                class="font-weight-bold text-center text-uppercase mt-2"
-                style="color: #004f9f; letter-spacing: 2px"
-              >
-                <%= member.name %>
-              </p>
+              <div class="d-flex flex-column">
+                <p
+                  class="font-weight-bold text-center text-uppercase mt-2"
+                  style="color: #004f9f; letter-spacing: 2px"
+                >
+                  <%= member.name %>
+                </p>
 
-              <p
-                class="font-weight-bold text-center"
-                style="letter-spacing: 2px"
-              >
-                <%= member.nation_data.name %>
-              </p>
-
-              
+                <p
+                  class="font-weight-bold text-center"
+                  style="letter-spacing: 2px"
+                >
+                  <%= member.nation_data.name %>
+                </p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
         <% }) %>
         <div></div>
